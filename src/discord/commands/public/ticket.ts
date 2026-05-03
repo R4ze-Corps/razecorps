@@ -7,13 +7,16 @@ createCommand({
     description: "Envia o painel de atendimento (Ticket)",
     type: ApplicationCommandType.ChatInput,
     async run(interaction) {
-        const embed = new EmbedBuilder()
+        const bannerEmbed = new EmbedBuilder()
             .setColor("#2B2D31")
-            .setImage("https://r2.fivemanage.com/vLUsF9vzqBOo7DSFHERFX/Gemini_Generated_Image_giolfxgiolfxgiol(1).png")
-            .setTitle("📝 Sistema de Ticket - 🔨 Warn Nuis")
+            .setImage("https://r2.fivemanage.com/vLUsF9vzqBOo7DSFHERFX/Gemini_Generated_Image_giolfxgiolfxgiol(1).png");
+
+        const contentEmbed = new EmbedBuilder()
+            .setColor("#2B2D31")
+            .setTitle("?? Sistema de Ticket - ?? Warn Nuis")
             .setDescription(
-                "**▶️ ATENÇÃO!**\n" +
-                "Não abra um **ATENDIMENTO** sem ter algo relevante. Leia nossas <#undefined>, abrir apenas por abrir irá gerar punições."
+                "**?? ATEN��O!**\n" +
+                "N�o abra um **ATENDIMENTO** sem ter algo relevante. Leia nossas <#undefined>, abrir apenas por abrir ir� gerar puni��es."
             );
 
         const row = createRow(
@@ -21,17 +24,17 @@ createCommand({
                 customId: "ticket-open",
                 label: "Iniciar Atendimento",
                 style: ButtonStyle.Secondary,
-                emoji: "➕"
+                emoji: "?"
             })
         );
 
         await interaction.reply({
-            content: "✅ Painel enviado com sucesso!",
+            content: "? Painel enviado com sucesso!",
             flags: ["Ephemeral"]
         });
 
         await interaction.channel?.send({
-            embeds: [embed],
+            embeds: [bannerEmbed, contentEmbed],
             components: [row]
         });
     }
