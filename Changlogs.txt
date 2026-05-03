@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-2.8) Correção de Erros: Eliminadas variáveis não utilizadas e corrigidas duplicatas no arquivo de tickets que impediam o build.
+▸ (M-2.9) Polimento Final: Removida mensagem de confirmação ao assumir ticket e corrigidos erros de variáveis não utilizadas no build.

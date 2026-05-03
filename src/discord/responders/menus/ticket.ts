@@ -29,10 +29,8 @@ createResponder({
                 break;
         }
 
-        // Mover para a categoria correspondente
         await (channel as any).setParent(categoryId, { lockPermissions: false });
 
-        // Atualizar o embed original para incluir o produto e remover o menu
         if (message && message.embeds[0]) {
             const oldEmbed = message.embeds[0];
             const newEmbed = EmbedBuilder.from(oldEmbed)
@@ -40,7 +38,7 @@ createResponder({
 
             await message.edit({
                 embeds: [newEmbed],
-                components: [message.components[1]] // Mantém apenas a linha de botões, remove o menu
+                components: [message.components[1]] 
             });
         }
 

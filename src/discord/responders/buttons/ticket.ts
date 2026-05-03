@@ -13,7 +13,6 @@ import {
     TextInputStyle
 } from "discord.js";
 
-// Botão para Abrir o Ticket (Painel Inicial)
 createResponder({
     customId: "ticket-open",
     types: [ResponderType.Button],
@@ -128,7 +127,6 @@ createResponder({
     },
 });
 
-// Botão Assumir
 createResponder({
     customId: "ticket-assumir",
     types: [ResponderType.Button],
@@ -148,11 +146,9 @@ createResponder({
         }
 
         await interaction.update({ embeds: [newEmbed] });
-        await interaction.followUp({ content: `✅ O ticket foi assumido por ${user}!`, ephemeral: false });
     },
 });
 
-// Botão Adicionar (Abrir Modal)
 createResponder({
     customId: "ticket-add-user-modal",
     types: [ResponderType.Button],
@@ -176,7 +172,6 @@ createResponder({
     },
 });
 
-// Botão Fechar
 createResponder({
     customId: "ticket-close",
     types: [ResponderType.Button],
