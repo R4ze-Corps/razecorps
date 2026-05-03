@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-1.2) Ajuste de Layout: Banner movido para dentro do embed principal (bloco único).
+▸ (M-1.3) Ajuste de Integração: Adicionada linha divisória e alterado emoji do botão para melhor integração visual (efeito "dentro do embed").
