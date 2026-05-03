@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-1.3) Ajuste de Integração: Adicionada linha divisória e alterado emoji do botão para melhor integração visual (efeito "dentro do embed").
+▸ (M-1.4) Reversão de Layout: Retorno ao modelo de embed único (M-1.2) após solicitação do usuário.
