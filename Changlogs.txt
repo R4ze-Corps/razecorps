@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-1.9) Reversão de Emojis: IDs de emojis retornados para 1326396621201866824 e 1326680955225641021.
+▸ (M-2.0) Upgrade de Sistema: Implementação de links diretos para ícones via campo Author e limpeza total do sistema de Ticket.
