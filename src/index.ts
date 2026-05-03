@@ -1,9 +1,12 @@
 import { env } from "#env";
 import { bootstrap } from "@constatic/base";
 import ck from "chalk";
+import fs from "node:fs";
 
-console.log(ck.blue("? Projeto Raze II Iniciando..."));
-console.log(ck.green("? Variáveis de ambiente validadas ?"));
+// Limpa o console para o nosso visual customizado
+console.clear();
+
+console.log(ck.blue("? Projeto Raze II - Inicializando..."));
 
 await bootstrap({ 
     meta: import.meta, 
@@ -11,5 +14,16 @@ await bootstrap({
     clearConsole: false
 });
 
-console.log(ck.cyan("\n? Raze Corporation está online!"));
-console.log(ck.yellow("? (M-1.0) Versão inicial do sistema de Ticket configurada."));
+// Customização do log em PT-BR
+console.log(ck.green("? Variáveis de ambiente validadas ?"));
+console.log(ck.cyan("{/} Comando Slash > /ticket ?"));
+console.log(ck.magenta("? Botão > ticket-open ?"));
+
+console.log(ck.green("\n? Raze Corporation está online e pronta!"));
+
+// Exibir Changelogs no terminal
+if (fs.existsSync("Changlogs.txt")) {
+    const logs = fs.readFileSync("Changlogs.txt", "utf-8");
+    console.log(ck.yellow("\n? CHANGELOGS"));
+    console.log(ck.white(logs));
+}
