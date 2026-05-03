@@ -1,2 +1,2 @@
-? CHANGELOGS - Raze Corporation
-? (M-1.0) Vers�o inicial: Sistema de Ticket com layout de embed duplo e banner superior. Limpeza de arquivos de exemplo.
+﻿★ CHANGELOGS - Raze Corporation
+▸ (M-1.0) Versão inicial: Sistema de Ticket com layout de embed duplo e banner superior. Limpeza de arquivos de exemplo.

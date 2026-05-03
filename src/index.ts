@@ -1,28 +1,24 @@
-import { env } from "#env";
+Ôªøimport { env } from "#env";
 import { bootstrap } from "@constatic/base";
 import ck from "chalk";
 import fs from "node:fs";
 
-// Limpa o console manualmente j· que a propriedade n„o existe no framework
 console.clear();
-
-console.log(ck.blue("? Projeto Raze II - Inicializando..."));
+console.log(ck.blue("‚òÖ Projeto Raze II - Inicializando..."));
 
 await bootstrap({ 
     meta: import.meta, 
     env
 });
 
-// CustomizaÁ„o do log em PT-BR
-console.log(ck.green("? Vari·veis de ambiente validadas ?"));
-console.log(ck.cyan("{/} Comando Slash > /ticket ?"));
-console.log(ck.magenta("? Bot„o > ticket-open ?"));
+console.log(ck.green("‚ò∞ Vari√°veis de ambiente validadas ‚úì"));
+console.log(ck.cyan("{/} Comando Slash > /ticket ‚úì"));
+console.log(ck.magenta("‚ñ∏ Bot√£o > ticket-open ‚úì"));
 
-console.log(ck.green("\n? Raze Corporation est· online e pronta!"));
+console.log(ck.green("\n‚óè Raze Corporation est√° online e pronta!"));
 
-// Exibir Changelogs no terminal
 if (fs.existsSync("Changlogs.txt")) {
     const logs = fs.readFileSync("Changlogs.txt", "utf-8");
-    console.log(ck.yellow("\n? CHANGELOGS"));
+    console.log(ck.yellow("\n‚òÖ CHANGELOGS"));
     console.log(ck.white(logs));
 }

@@ -1,4 +1,4 @@
-import { createCommand } from "#base";
+﻿import { createCommand } from "#base";
 import { createRow } from "@magicyan/discord";
 import { ApplicationCommandType, ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
 
@@ -13,10 +13,10 @@ createCommand({
 
         const contentEmbed = new EmbedBuilder()
             .setColor("#2B2D31")
-            .setTitle("?? Sistema de Ticket - ?? Warn Nuis")
+            .setTitle("📝 Sistema de Ticket - 🔨 Warn Nuis")
             .setDescription(
-                "**?? ATEN��O!**\n" +
-                "N�o abra um **ATENDIMENTO** sem ter algo relevante. Leia nossas <#1301323386001719369>, abrir apenas por abrir ir� gerar puni��es."
+                "**▶️ ATENÇÃO!**\n" +
+                "Não abra um **ATENDIMENTO** sem ter algo relevante. Leia nossas <#1301323386001719369>, abrir apenas por abrir irá gerar punições."
             );
 
         const row = createRow(
@@ -24,11 +24,11 @@ createCommand({
                 .setCustomId("ticket-open")
                 .setLabel("Iniciar Atendimento")
                 .setStyle(ButtonStyle.Secondary)
-                .setEmoji("??")
+                .setEmoji("📩")
         );
 
         await interaction.reply({
-            content: "? Painel enviado com sucesso!",
+            content: "✅ Painel enviado com sucesso!",
             flags: ["Ephemeral"]
         });
 
