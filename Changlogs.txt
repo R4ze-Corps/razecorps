@@ -1,8 +1,2 @@
-perfeito agora que vc já sabe, vamos iniciar um projeto de bot para a minha loja. vamos várias funções para ele. quero definir umas regras antes de começar a criar
-- Sempre foque em deixar o bot full otimizado para evitar lag e travamentos
-- Sempre deixe o código organizado e limpo
-- Se for nescessário criar novo arquivo para otimizar o bot você terá a liberdade para criar!
-
-Projeto Raze II
-Comando: /Ticket
-Função: Deverá enviar um painel no canal onde foi utilizado o comando. O painel deve seguir o estilo da imagem [@Image](zed:///agent/pasted-image?name=Image) com banner https://r2.fivemanage.com/vLUsF9vzqBOo7DSFHERFX/Gemini_Generated_Image_giolfxgiolfxgiol(1).png no topo.
+? CHANGELOGS - Raze Corporation
+? (M-1.0) Vers�o inicial: Sistema de Ticket com layout de embed duplo e banner superior. Limpeza de arquivos de exemplo.

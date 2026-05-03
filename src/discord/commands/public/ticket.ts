@@ -20,12 +20,11 @@ createCommand({
             );
 
         const row = createRow(
-            new ButtonBuilder({
-                customId: "ticket-open",
-                label: "Iniciar Atendimento",
-                style: ButtonStyle.Secondary,
-                emoji: "?"
-            })
+            new ButtonBuilder()
+                .setCustomId("ticket-open")
+                .setLabel("Iniciar Atendimento")
+                .setStyle(ButtonStyle.Secondary)
+                .setEmoji("??")
         );
 
         await interaction.reply({
