@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-1.6) Personalização de Conteúdo: Adicionados emojis customizados do servidor e link para Termos & Condições na descrição do ticket.
+▸ (M-1.7) Debug de Emojis: Re-aplicação dos IDs de emojis customizados e atualização forçada do sistema.
