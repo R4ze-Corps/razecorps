@@ -7,10 +7,13 @@ import {
     ChannelType, 
     EmbedBuilder, 
     PermissionFlagsBits, 
-    StringSelectMenuBuilder 
+    StringSelectMenuBuilder,
+    ModalBuilder,
+    TextInputBuilder,
+    TextInputStyle
 } from "discord.js";
 
-// Botão para Abrir o Ticket
+// Botão para Abrir o Ticket (Painel Inicial)
 createResponder({
     customId: "ticket-open",
     types: [ResponderType.Button],
@@ -72,7 +75,8 @@ createResponder({
                         "🤖 **Bot:** Desenvolvimento de sistemas e comandos personalizados para o seu Discord.\n" +
                         "👕 **Roupas:** Criação de texturas exclusivas sob medida.\n" +
                         "📜 **Script:** Sistemas exclusivos para a sua base."
-                    }
+                    },
+                    { name: "👤 ASSUMIDO:", value: "`Ninguém`", inline: true }
                 )
                 .setImage("https://r2.fivemanage.com/vLUsF9vzqBOo7DSFHERFX/Gemini_Generated_Image_nenl89nenl89nenl.png");
 
@@ -89,15 +93,15 @@ createResponder({
 
             const actionRow = createRow(
                 new ButtonBuilder()
-                    .setCustomId("ticket-view-orders")
-                    .setLabel("Ver Pedidos")
+                    .setCustomId("ticket-assumir")
+                    .setLabel("Assumir")
                     .setStyle(ButtonStyle.Success)
-                    .setEmoji("📊"),
+                    .setEmoji("✅"),
                 new ButtonBuilder()
-                    .setCustomId("ticket-config")
-                    .setLabel("Configurar")
+                    .setCustomId("ticket-add-user-modal")
+                    .setLabel("Adicionar")
                     .setStyle(ButtonStyle.Secondary)
-                    .setEmoji("⚙️"),
+                    .setEmoji("➕"),
                 new ButtonBuilder()
                     .setCustomId("ticket-close")
                     .setLabel("Fechar")
@@ -124,37 +128,51 @@ createResponder({
     },
 });
 
-// Botão Ver Pedidos
+// Botão Assumir
 createResponder({
-    customId: "ticket-view-orders",
+    customId: "ticket-assumir",
     types: [ResponderType.Button],
     cache: "cached",
     async run(interaction) {
-        await interaction.reply({
-            content: "📊 **Resumo de Pedidos:**\n\nNo momento, você não possui pedidos finalizados ou em andamento no nosso sistema.",
-            flags: ["Ephemeral"]
-        });
+        const { message, user } = interaction;
+        if (!message || !message.embeds[0]) return;
+
+        const oldEmbed = message.embeds[0];
+        const newEmbed = EmbedBuilder.from(oldEmbed);
+        
+        const assumidoFieldIndex = newEmbed.data.fields?.findIndex(f => f.name === "👤 ASSUMIDO:");
+        if (assumidoFieldIndex !== undefined && assumidoFieldIndex !== -1) {
+            newEmbed.data.fields![assumidoFieldIndex].value = `${user}`;
+        } else {
+            newEmbed.addFields({ name: "👤 ASSUMIDO:", value: `${user}`, inline: true });
+        }
+
+        await interaction.update({ embeds: [newEmbed] });
+        await interaction.followUp({ content: `✅ O ticket foi assumido por ${user}!`, ephemeral: false });
     },
 });
 
-// Botão Configurar (Apenas Admins)
+// Botão Adicionar (Abrir Modal)
 createResponder({
-    customId: "ticket-config",
+    customId: "ticket-add-user-modal",
     types: [ResponderType.Button],
     cache: "cached",
     async run(interaction) {
-        if (!interaction.memberPermissions?.has(PermissionFlagsBits.Administrator)) {
-            await interaction.reply({
-                content: "❌ Apenas administradores podem configurar o sistema!",
-                flags: ["Ephemeral"]
-            });
-            return;
-        }
+        const modal = new ModalBuilder()
+            .setCustomId("ticket-add-user-action")
+            .setTitle("Adicionar Pessoa ao Ticket");
 
-        await interaction.reply({
-            content: "⚙️ **Painel de Configuração:**\nEm breve você poderá editar textos e serviços diretamente por aqui.",
-            flags: ["Ephemeral"]
-        });
+        const userIdInput = new TextInputBuilder()
+            .setCustomId("user-id")
+            .setLabel("ID do Usuário")
+            .setPlaceholder("Digite o ID do Discord da pessoa")
+            .setStyle(TextInputStyle.Short)
+            .setRequired(true);
+
+        const row = createRow(userIdInput);
+        modal.addComponents(row);
+
+        await interaction.showModal(modal);
     },
 });
 
