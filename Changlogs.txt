@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-1.7) Debug de Emojis: Re-aplicação dos IDs de emojis customizados e atualização forçada do sistema.
+▸ (M-1.8) Atualização de Emojis: IDs de emojis corrigidos para 1500525871965016064 (Construção) e 1500526811879182426 (Ideia).
