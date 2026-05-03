@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-1.4) Reversão de Layout: Retorno ao modelo de embed único (M-1.2) após solicitação do usuário.
+▸ (M-1.5) Suporte a Emojis: Código preparado para aceitar emojis customizados do servidor e correção de visualização.

@@ -7,6 +7,7 @@ createCommand({
     description: "Envia o painel de atendimento (Ticket)",
     type: ApplicationCommandType.ChatInput,
     async run(interaction) {
+        // DICA: Para usar emojis customizados, use o formato <:nome:id> ou <a:nome:id> na descrição.
         const embed = new EmbedBuilder()
             .setColor("#2B2D31")
             .setTitle("📝 Sistema de Ticket - 🔨 Warn Nuis")
@@ -21,7 +22,7 @@ createCommand({
                 .setCustomId("ticket-open")
                 .setLabel("Iniciar Atendimento")
                 .setStyle(ButtonStyle.Secondary)
-                .setEmoji("📩")
+                .setEmoji("📩") // Aqui você também pode usar o ID de um emoji customizado
         );
 
         await interaction.reply({
