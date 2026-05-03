@@ -10,6 +10,7 @@ import {
     StringSelectMenuBuilder 
 } from "discord.js";
 
+// Botão para Abrir o Ticket
 createResponder({
     customId: "ticket-open",
     types: [ResponderType.Button],
@@ -20,10 +21,8 @@ createResponder({
 
         await interaction.deferReply({ ephemeral: true });
 
-        // Categoria configurada
         const categoryId = "1322339427967828091";
 
-        // Verificar se já existe um ticket aberto para evitar lag/spam
         const existingChannel = guild.channels.cache.find(c => 
             c.name === `⏰・${user.username.toLowerCase()}`
         );
@@ -36,7 +35,6 @@ createResponder({
         }
 
         try {
-            // Criar o canal de ticket
             const channel = await guild.channels.create({
                 name: `⏰・${user.username}`,
                 type: ChannelType.GuildText,
@@ -58,7 +56,6 @@ createResponder({
                 ],
             });
 
-            // Embed de Boas-vindas dentro do Ticket
             const embed = new EmbedBuilder()
                 .setColor("#2B2D31")
                 .setThumbnail("https://r2.fivemanage.com/vLUsF9vzqBOo7DSFHERFX/logo-png(1).png")
@@ -82,7 +79,6 @@ createResponder({
                 )
                 .setImage("https://r2.fivemanage.com/vLUsF9vzqBOo7DSFHERFX/Gemini_Generated_Image_nenl89nenl89nenl.png");
 
-            // Menu de Seleção
             const menuRow = createRow(
                 new StringSelectMenuBuilder()
                     .setCustomId("ticket-select-service")
@@ -94,7 +90,6 @@ createResponder({
                     ])
             );
 
-            // Botões de Ação
             const actionRow = createRow(
                 new ButtonBuilder()
                     .setCustomId("ticket-view-orders")
@@ -131,9 +126,6 @@ createResponder({
         }
     },
 });
-import { createResponder } from "#base";
-import { ResponderType } from "@constatic/base";
-import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
 // Botão Ver Entregas
 createResponder({
@@ -141,7 +133,6 @@ createResponder({
     types: [ResponderType.Button],
     cache: "cached",
     async run(interaction) {
-        // Futuramente buscar do banco de dados
         await interaction.reply({
             content: "📊 **Resumo de Entregas:**\n\nNo momento, você não possui pedidos finalizados ou em andamento no nosso sistema.",
             flags: ["Ephemeral"]
