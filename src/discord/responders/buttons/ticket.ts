@@ -131,3 +131,61 @@ createResponder({
         }
     },
 });
+import { createResponder } from "#base";
+import { ResponderType } from "@constatic/base";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
+
+// Botão Ver Entregas
+createResponder({
+    customId: "ticket-view-orders",
+    types: [ResponderType.Button],
+    cache: "cached",
+    async run(interaction) {
+        // Futuramente buscar do banco de dados
+        await interaction.reply({
+            content: "📊 **Resumo de Entregas:**\n\nNo momento, você não possui pedidos finalizados ou em andamento no nosso sistema.",
+            flags: ["Ephemeral"]
+        });
+    },
+});
+
+// Botão Configurar (Apenas Admins)
+createResponder({
+    customId: "ticket-config",
+    types: [ResponderType.Button],
+    cache: "cached",
+    async run(interaction) {
+        if (!interaction.memberPermissions?.has(PermissionFlagsBits.Administrator)) {
+            await interaction.reply({
+                content: "❌ Apenas administradores podem configurar o sistema!",
+                flags: ["Ephemeral"]
+            });
+            return;
+        }
+
+        await interaction.reply({
+            content: "⚙️ **Painel de Configuração:**\nEm breve você poderá editar textos e serviços diretamente por aqui.",
+            flags: ["Ephemeral"]
+        });
+    },
+});
+
+// Botão Fechar
+createResponder({
+    customId: "ticket-close",
+    types: [ResponderType.Button],
+    cache: "cached",
+    async run(interaction) {
+        await interaction.reply({
+            content: "🔒 **Este ticket será fechado em 5 segundos...**"
+        });
+
+        setTimeout(async () => {
+            try {
+                await interaction.channel?.delete();
+            } catch (error) {
+                console.error("Erro ao deletar canal:", error);
+            }
+        }, 5000);
+    },
+});

@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-2.3) Re-implementação de Embed: Adicionado painel de atendimento com novas informações e novo banner na parte inferior.
+▸ (M-2.4) Lógica Completa de Ticket: Abertura automática de canais, seleção de serviços (Bot, Roupas, Script) e ações de Ver Entregas/Fechar.
