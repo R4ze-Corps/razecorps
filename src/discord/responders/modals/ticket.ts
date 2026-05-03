@@ -5,9 +5,12 @@ createResponder({
     customId: "modal_add_id",
     types: [ResponderType.Modal],
     cache: "cached",
-    async run(interaction): Promise<void> {
+    async run(interaction, _params): Promise<void> {
         const { fields, guild, channel } = interaction;
-        if (!guild || !channel || !("permissionOverwrites" in channel)) return;
+        
+        if (!guild || !channel || !("permissionOverwrites" in channel)) {
+            return;
+        }
 
         const userId = fields.getTextInputValue("input_user_id");
 
@@ -28,15 +31,11 @@ createResponder({
             await interaction.reply({ 
                 content: `✅ O usuário <@${userId}> foi adicionado a este ticket por <@${interaction.user.id}>.` 
             });
+            return;
 
         } catch (error) {
-            if (!interaction.replied && !interaction.deferred) {
-                await interaction.reply({ 
-                    content: "❌ Ocorreu um erro ao processar o ID.", 
-                    ephemeral: true 
-                });
-            }
+            // Silenciosamente ignora erros de permissão ou rede
+            return;
         }
-        return;
     },
 });
