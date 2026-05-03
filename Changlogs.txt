@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-1.5) Suporte a Emojis: Código preparado para aceitar emojis customizados do servidor e correção de visualização.
+▸ (M-1.6) Personalização de Conteúdo: Adicionados emojis customizados do servidor e link para Termos & Condições na descrição do ticket.

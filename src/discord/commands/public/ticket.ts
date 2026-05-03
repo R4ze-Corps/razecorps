@@ -7,13 +7,12 @@ createCommand({
     description: "Envia o painel de atendimento (Ticket)",
     type: ApplicationCommandType.ChatInput,
     async run(interaction) {
-        // DICA: Para usar emojis customizados, use o formato <:nome:id> ou <a:nome:id> na descrição.
         const embed = new EmbedBuilder()
             .setColor("#2B2D31")
-            .setTitle("📝 Sistema de Ticket - 🔨 Warn Nuis")
             .setDescription(
-                "**▶️ ATENÇÃO!**\n" +
-                "Não abra um **ATENDIMENTO** sem ter algo relevante. Leia nossas <#1301323386001719369>, abrir apenas por abrir irá gerar punições."
+                "<:Construcao:1326396621201866824> **Sistema de Atendimento - Raze Corporation**\n\n" +
+                "<:Ideia:1326680955225641021> **ATENÇÃO!**\n" +
+                "Não abra um **ATENDIMENTO** sem ter algo relevante. Leia nossas [Termos & Condições](https://discord.com/channels/1320994106536759377/1321202554885115924)."
             )
             .setImage("https://r2.fivemanage.com/vLUsF9vzqBOo7DSFHERFX/Gemini_Generated_Image_giolfxgiolfxgiol(1).png");
 
@@ -22,7 +21,7 @@ createCommand({
                 .setCustomId("ticket-open")
                 .setLabel("Iniciar Atendimento")
                 .setStyle(ButtonStyle.Secondary)
-                .setEmoji("📩") // Aqui você também pode usar o ID de um emoji customizado
+                .setEmoji("📩")
         );
 
         await interaction.reply({
