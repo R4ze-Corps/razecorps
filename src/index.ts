@@ -3,15 +3,14 @@ import { bootstrap } from "@constatic/base";
 import ck from "chalk";
 import fs from "node:fs";
 
-// Limpa o console para o nosso visual customizado
+// Limpa o console manualmente já que a propriedade não existe no framework
 console.clear();
 
 console.log(ck.blue("? Projeto Raze II - Inicializando..."));
 
 await bootstrap({ 
     meta: import.meta, 
-    env,
-    clearConsole: false
+    env
 });
 
 // Customização do log em PT-BR

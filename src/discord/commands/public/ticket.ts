@@ -16,7 +16,7 @@ createCommand({
             .setTitle("?? Sistema de Ticket - ?? Warn Nuis")
             .setDescription(
                 "**?? ATENÇÃO!**\n" +
-                "Não abra um **ATENDIMENTO** sem ter algo relevante. Leia nossas <#undefined>, abrir apenas por abrir irá gerar punições."
+                "Não abra um **ATENDIMENTO** sem ter algo relevante. Leia nossas <#1301323386001719369>, abrir apenas por abrir irá gerar punições."
             );
 
         const row = createRow(
