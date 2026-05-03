@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-3.0) Correção Crítica: Adicionado deferReply ao modal de adição para evitar erros de timeout e otimizada a lógica de permissões por ID.
+▸ (M-3.1) Reorganização de Lógica: Sistema de adição de membros refatorado para seguir o fluxo exato de clique -> modal -> permissão.
