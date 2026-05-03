@@ -59,22 +59,19 @@ createResponder({
             const embed = new EmbedBuilder()
                 .setColor("#2B2D31")
                 .setThumbnail("https://r2.fivemanage.com/vLUsF9vzqBOo7DSFHERFX/logo-png(1).png")
-                .setTitle("Fluxo de Atendimento - Raze Corporation")
+                .setTitle("🛒 Central de Atendimento - Raze Corporation")
                 .setDescription(
-                    `Olá ${user}, bem-vindo(a) à sua sala de atendimento!\n\n` +
-                    "**Como registrar seu farm:**\n" +
-                    "1️⃣ Selecione na lista abaixo o produto que você farmou.\n" +
-                    "2️⃣ Preencha a quantidade na janela que vai abrir.\n" +
-                    "3️⃣ Envie o print da entrega no chat e finalize.\n\n" +
-                    "Acompanhe seu progresso clicando em \"Ver Entregas\"."
+                    `Olá ${user}! Bem-vindo(a) ao suporte da Raze Corporation. Estamos prontos para tirar suas dúvidas e iniciar o seu projeto.\n\n` +
+                    "**Como solicitar um serviço:**\n" +
+                    "1. Clique no menu de seleção logo abaixo e escolha o produto que você deseja.\n" +
+                    "2. Após escolher, envie no chat todas as informações, ideias ou imagens de referência do que você precisa.\n" +
+                    "3. Aguarde um momento! Nossa equipe já foi notificada e logo um atendente virá falar com você."
                 )
                 .addFields(
-                    { name: "🎯 Metas de Farm:", value: 
-                        "📦 **Plástico Black:** Meta 500\n" +
-                        "📦 **Alumínio:** Meta 500\n" +
-                        "📦 **Pólvora Preta:** Meta 1.000\n" +
-                        "📦 **Barra de Ferro:** Meta 1.000\n" +
-                        "📦 **Cartão SD:** Meta 500"
+                    { name: "🎯 O que nós oferecemos:", value: 
+                        "🤖 **Bot:** Desenvolvimento de sistemas e comandos personalizados para o seu Discord.\n" +
+                        "👕 **Roupas:** Criação de texturas exclusivas sob medida.\n" +
+                        "📜 **Script:** Sistemas exclusivos para a sua base."
                     }
                 )
                 .setImage("https://r2.fivemanage.com/vLUsF9vzqBOo7DSFHERFX/Gemini_Generated_Image_nenl89nenl89nenl.png");
@@ -82,7 +79,7 @@ createResponder({
             const menuRow = createRow(
                 new StringSelectMenuBuilder()
                     .setCustomId("ticket-select-service")
-                    .setPlaceholder("📦 Selecione o produto que você farmou")
+                    .setPlaceholder("📦 Selecione o produto que você deseja")
                     .addOptions([
                         { label: "Bot", value: "service-bot", emoji: "🤖", description: "Sistemas personalizados e bots de Discord" },
                         { label: "Roupas", value: "service-clothes", emoji: "👕", description: "Modelagens e texturas exclusivas" },
@@ -93,7 +90,7 @@ createResponder({
             const actionRow = createRow(
                 new ButtonBuilder()
                     .setCustomId("ticket-view-orders")
-                    .setLabel("Ver Entregas")
+                    .setLabel("Ver Pedidos")
                     .setStyle(ButtonStyle.Success)
                     .setEmoji("📊"),
                 new ButtonBuilder()
@@ -127,14 +124,14 @@ createResponder({
     },
 });
 
-// Botão Ver Entregas
+// Botão Ver Pedidos
 createResponder({
     customId: "ticket-view-orders",
     types: [ResponderType.Button],
     cache: "cached",
     async run(interaction) {
         await interaction.reply({
-            content: "📊 **Resumo de Entregas:**\n\nNo momento, você não possui pedidos finalizados ou em andamento no nosso sistema.",
+            content: "📊 **Resumo de Pedidos:**\n\nNo momento, você não possui pedidos finalizados ou em andamento no nosso sistema.",
             flags: ["Ephemeral"]
         });
     },

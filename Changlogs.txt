@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-2.4) Lógica Completa de Ticket: Abertura automática de canais, seleção de serviços (Bot, Roupas, Script) e ações de Ver Entregas/Fechar.
+▸ (M-2.6) Atualização de Texto: Painel interno de atendimento atualizado com novas instruções e oferta de serviços.
