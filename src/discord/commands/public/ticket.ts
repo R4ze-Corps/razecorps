@@ -1,21 +1,12 @@
 ﻿import { createCommand } from "#base";
 import { createRow } from "@magicyan/discord";
-import { ApplicationCommandType, ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
+import { ApplicationCommandType, ButtonBuilder, ButtonStyle } from "discord.js";
 
 createCommand({
     name: "ticket",
-    description: "Envia o painel de atendimento (Ticket)",
+    description: "Envia apenas o botão de atendimento",
     type: ApplicationCommandType.ChatInput,
     async run(interaction) {
-        const embed = new EmbedBuilder()
-            .setColor("#2B2D31")
-            .setTitle("Sistema de Atendimento - Raze Corporation")
-            .setDescription(
-                "<:Construcao:1326396621201866824> **ATENÇÃO!**\n" +
-                "Não abra um **ATENDIMENTO** sem ter algo relevante. Leia nossas [Termos & Condições](https://discord.com/channels/1320994106536759377/1321202554885115924)."
-            )
-            .setImage("https://r2.fivemanage.com/vLUsF9vzqBOo7DSFHERFX/Gemini_Generated_Image_giolfxgiolfxgiol(1).png");
-
         const row = createRow(
             new ButtonBuilder()
                 .setCustomId("ticket-open")
@@ -25,12 +16,11 @@ createCommand({
         );
 
         await interaction.reply({
-            content: "✅ Painel enviado com sucesso!",
+            content: "✅ Botão enviado com sucesso!",
             flags: ["Ephemeral"]
         });
 
         await interaction.channel?.send({
-            embeds: [embed],
             components: [row]
         });
     }

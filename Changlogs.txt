@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-2.1) Ajuste Visual: Ícone de construção movido para a descrição e título limpo.
+▸ (M-2.2) Simplificação: Removidos os embeds do comando /ticket, deixando apenas o botão de Iniciar Atendimento.
