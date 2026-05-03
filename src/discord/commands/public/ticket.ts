@@ -1,0 +1,38 @@
+import { createCommand } from "#base";
+import { createRow } from "@magicyan/discord";
+import { ApplicationCommandType, ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
+
+createCommand({
+    name: "ticket",
+    description: "Envia o painel de atendimento (Ticket)",
+    type: ApplicationCommandType.ChatInput,
+    async run(interaction) {
+        const embed = new EmbedBuilder()
+            .setColor("#2B2D31")
+            .setImage("https://r2.fivemanage.com/vLUsF9vzqBOo7DSFHERFX/Gemini_Generated_Image_giolfxgiolfxgiol(1).png")
+            .setTitle("📝 Sistema de Ticket - 🔨 Warn Nuis")
+            .setDescription(
+                "**▶️ ATENÇÃO!**\n" +
+                "Não abra um **ATENDIMENTO** sem ter algo relevante. Leia nossas <#undefined>, abrir apenas por abrir irá gerar punições."
+            );
+
+        const row = createRow(
+            new ButtonBuilder({
+                customId: "ticket-open",
+                label: "Iniciar Atendimento",
+                style: ButtonStyle.Secondary,
+                emoji: "➕"
+            })
+        );
+
+        await interaction.reply({
+            content: "✅ Painel enviado com sucesso!",
+            flags: ["Ephemeral"]
+        });
+
+        await interaction.channel?.send({
+            embeds: [embed],
+            components: [row]
+        });
+    }
+});
