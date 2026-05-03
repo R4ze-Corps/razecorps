@@ -7,7 +7,7 @@ createResponder({
     types: [ResponderType.StringSelect],
     cache: "cached",
     async run(interaction) {
-        const { values, user, channel, message } = interaction;
+        const { values, channel, message } = interaction;
         if (!channel || !channel.isTextBased() || !("setParent" in channel)) return;
 
         const selected = values[0];

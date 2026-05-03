@@ -1,6 +1,5 @@
 ﻿import { createResponder } from "#base";
 import { ResponderType } from "@constatic/base";
-import { PermissionFlagsBits } from "discord.js";
 
 createResponder({
     customId: "ticket-add-user-action",

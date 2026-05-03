@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-2.7) Evolução do Ticket: Implementada lógica de Assumir atendimento, Adicionar pessoas via ID e movimentação automática de categorias baseada no produto.
+▸ (M-2.8) Correção de Erros: Eliminadas variáveis não utilizadas e corrigidas duplicatas no arquivo de tickets que impediam o build.
