@@ -10,8 +10,12 @@ import {
     StringSelectMenuBuilder,
     ModalBuilder,
     TextInputBuilder,
-    TextInputStyle
+    TextInputStyle,
+    TextChannel
 } from "discord.js";
+import * as discordTranscripts from "discord-html-transcripts";
+import fs from "fs";
+import path from "path";
 
 // Painel Inicial e Lógica de Abertura
 createResponder({
@@ -148,7 +152,50 @@ createResponder({
     types: [ResponderType.Button],
     cache: "cached",
     async run(interaction) {
-        await interaction.reply({ content: "🔒 **Este ticket será fechado em 5 segundos...**" });
-        setTimeout(() => interaction.channel?.delete().catch(() => {}), 5000);
+        const { channel, guild, user } = interaction;
+        if (!channel || channel.type !== ChannelType.GuildText) return;
+
+        await interaction.reply({ content: "🔒 **Este ticket será fechado e o transcript gerado em 5 segundos...**" });
+
+        setTimeout(async () => {
+            try {
+                // Carregar canal de logs da config
+                const configPath = path.join(process.cwd(), "config.json");
+                let logChannelId = null;
+                if (fs.existsSync(configPath)) {
+                    const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+                    logChannelId = config.ticketLogChannelId;
+                }
+
+                const logChannel = logChannelId ? (guild?.channels.cache.get(logChannelId) as TextChannel) : null;
+
+                // Gerar Transcript
+                const attachment = await discordTranscripts.createTranscript(channel as any, {
+                    limit: -1,
+                    filename: `transcript-${channel.name}.html`,
+                    saveImages: true,
+                    poweredBy: false
+                });
+
+                if (logChannel) {
+                    const embed = new EmbedBuilder()
+                        .setTitle("📑 Novo Transcript de Ticket")
+                        .setColor("#2B2D31")
+                        .addFields(
+                            { name: "🎫 Canal:", value: `\`${channel.name}\``, inline: true },
+                            { name: "👤 Fechado por:", value: `${user}`, inline: true },
+                            { name: "📅 Data:", value: `<t:${Math.floor(Date.now() / 1000)}:F>`, inline: false }
+                        )
+                        .setTimestamp();
+
+                    await logChannel.send({ embeds: [embed], files: [attachment] });
+                }
+
+                await channel.delete().catch(() => {});
+            } catch (error) {
+                console.error("Erro ao gerar transcript:", error);
+                await channel.delete().catch(() => {});
+            }
+        }, 5000);
     },
 });
