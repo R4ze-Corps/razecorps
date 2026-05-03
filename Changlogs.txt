@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-3.1) Reorganização de Lógica: Sistema de adição de membros refatorado para seguir o fluxo exato de clique -> modal -> permissão.
+▸ (M-3.2) Correção de Tipagem: Ajustado o retorno das funções do Modal para compatibilidade estrita com o compilador TypeScript.

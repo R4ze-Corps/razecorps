@@ -12,14 +12,13 @@ createResponder({
         const userId = fields.getTextInputValue("input_user_id");
 
         try {
-            // Tenta achar o membro no servidor (conforme sua lógica)
             const member = await guild.members.fetch(userId);
 
             if (!member) {
-                return interaction.reply({ content: "❌ Usuário não encontrado no servidor!", ephemeral: true });
+                await interaction.reply({ content: "❌ Usuário não encontrado no servidor!", ephemeral: true });
+                return;
             }
 
-            // Atualiza as permissões do canal atual
             await (channel as any).permissionOverwrites.create(userId, {
                 ViewChannel: true,
                 SendMessages: true,
