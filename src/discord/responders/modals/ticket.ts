@@ -5,21 +5,21 @@ createResponder({
     customId: "modal_add_id",
     types: [ResponderType.Modal],
     cache: "cached",
-    async run(interaction) {
+    async run(interaction): Promise<void> {
         const { fields, guild, channel } = interaction;
         if (!guild || !channel || !("permissionOverwrites" in channel)) return;
 
         const userId = fields.getTextInputValue("input_user_id");
 
         try {
-            const member = await guild.members.fetch(userId);
+            const member = await guild.members.fetch(userId).catch(() => null);
 
             if (!member) {
                 await interaction.reply({ content: "❌ Usuário não encontrado no servidor!", ephemeral: true });
                 return;
             }
 
-            await (channel as any).permissionOverwrites.create(userId, {
+            await (channel as any).permissionOverwrites.create(member.id, {
                 ViewChannel: true,
                 SendMessages: true,
                 ReadMessageHistory: true
@@ -30,10 +30,13 @@ createResponder({
             });
 
         } catch (error) {
-            await interaction.reply({ 
-                content: "❌ Ocorreu um erro. Verifique se o ID está correto e se a pessoa está no servidor.", 
-                ephemeral: true 
-            });
+            if (!interaction.replied && !interaction.deferred) {
+                await interaction.reply({ 
+                    content: "❌ Ocorreu um erro ao processar o ID.", 
+                    ephemeral: true 
+                });
+            }
         }
+        return;
     },
 });

@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-3.2) Correção de Tipagem: Ajustado o retorno das funções do Modal para compatibilidade estrita com o compilador TypeScript.
+▸ (M-3.3) Estabilização de Tipagem: Forçado o retorno Promise<void> no Modal para garantir que o build do TypeScript não falhe mais.
