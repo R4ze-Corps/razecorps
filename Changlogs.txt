@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-1.8) Atualização de Emojis: IDs de emojis corrigidos para 1500525871965016064 (Construção) e 1500526811879182426 (Ideia).
+▸ (M-1.9) Reversão de Emojis: IDs de emojis retornados para 1326396621201866824 e 1326680955225641021.
