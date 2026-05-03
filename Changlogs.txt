@@ -1,2 +1,2 @@
 ﻿★ CHANGELOGS - Raze Corporation
-▸ (M-2.0) Upgrade de Sistema: Implementação de links diretos para ícones via campo Author e limpeza total do sistema de Ticket.
+▸ (M-2.1) Ajuste Visual: Ícone de construção movido para a descrição e título limpo.
