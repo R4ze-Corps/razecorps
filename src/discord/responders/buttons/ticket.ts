@@ -70,6 +70,7 @@ createResponder({
             const actionRow = createRow(
                 new ButtonBuilder().setCustomId("ticket-assumir").setLabel("Assumir").setStyle(ButtonStyle.Success).setEmoji("✅"),
                 new ButtonBuilder().setCustomId("botao_add_pessoa").setLabel("Adicionar").setStyle(ButtonStyle.Secondary).setEmoji("➕"),
+                new ButtonBuilder().setCustomId("botao_remover_pessoa").setLabel("Remover").setStyle(ButtonStyle.Secondary).setEmoji("➖"),
                 new ButtonBuilder().setCustomId("ticket-close").setLabel("Fechar").setStyle(ButtonStyle.Danger).setEmoji("🔒")
             );
 
@@ -79,7 +80,7 @@ createResponder({
     },
 });
 
-// ABRIR MODAL (conforme sua lógica)
+// ABRIR MODAL ADICIONAR
 createResponder({
     customId: "botao_add_pessoa",
     types: [ResponderType.Button],
@@ -91,6 +92,30 @@ createResponder({
 
         const inputId = new TextInputBuilder()
             .setCustomId("input_user_id")
+            .setLabel("Qual o ID do Discord do usuário?")
+            .setStyle(TextInputStyle.Short)
+            .setPlaceholder("Ex: 123456789012345678")
+            .setRequired(true)
+            .setMinLength(17)
+            .setMaxLength(19);
+
+        modal.addComponents(createRow(inputId));
+        await interaction.showModal(modal);
+    },
+});
+
+// ABRIR MODAL REMOVER
+createResponder({
+    customId: "botao_remover_pessoa",
+    types: [ResponderType.Button],
+    cache: "cached",
+    async run(interaction) {
+        const modal = new ModalBuilder()
+            .setCustomId("modal_remove_id")
+            .setTitle("Remover Membro do Ticket");
+
+        const inputId = new TextInputBuilder()
+            .setCustomId("input_user_id_remove")
             .setLabel("Qual o ID do Discord do usuário?")
             .setStyle(TextInputStyle.Short)
             .setPlaceholder("Ex: 123456789012345678")
