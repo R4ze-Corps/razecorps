@@ -9,8 +9,11 @@ createResponder({
         const { fields, guild, channel } = interaction;
         
         if (!guild || !channel || !("permissionOverwrites" in channel)) {
+            await interaction.reply({ content: "❌ Este canal não suporta permissões!", ephemeral: true });
             return;
         }
+
+        await interaction.deferReply({ ephemeral: true });
 
         const userId = fields.getTextInputValue("input_user_id");
 
@@ -18,23 +21,29 @@ createResponder({
             const member = await guild.members.fetch(userId).catch(() => null);
 
             if (!member) {
-                await interaction.reply({ content: "❌ Usuário não encontrado no servidor!", ephemeral: true });
+                await interaction.editReply({ content: "❌ Usuário não encontrado no servidor!" });
                 return;
             }
 
             await (channel as any).permissionOverwrites.create(member.id, {
                 ViewChannel: true,
                 SendMessages: true,
-                ReadMessageHistory: true
+                ReadMessageHistory: true,
+                AttachFiles: true,
+                EmbedLinks: true
             });
 
-            await interaction.reply({ 
-                content: `✅ O usuário <@${userId}> foi adicionado a este ticket por <@${interaction.user.id}>.` 
+            await interaction.editReply({ 
+                content: `✅ O usuário ${member} foi adicionado a este ticket por <@${interaction.user.id}>.` 
             });
-            return;
+
+            await (channel as any).send({
+                content: `👋 ${member}, você foi adicionado a este ticket por <@${interaction.user.id}>.`
+            });
 
         } catch (error) {
-            return;
+            console.error("Erro ao adicionar membro:", error);
+            await interaction.editReply({ content: "❌ Ocorreu um erro ao adicionar o usuário. Verifique se eu tenho as permissões necessárias." });
         }
     },
 });
@@ -47,8 +56,11 @@ createResponder({
         const { fields, guild, channel } = interaction;
         
         if (!guild || !channel || !("permissionOverwrites" in channel)) {
+            await interaction.reply({ content: "❌ Este canal não suporta permissões!", ephemeral: true });
             return;
         }
+
+        await interaction.deferReply({ ephemeral: true });
 
         const userId = fields.getTextInputValue("input_user_id_remove");
 
@@ -56,19 +68,23 @@ createResponder({
             const member = await guild.members.fetch(userId).catch(() => null);
 
             if (!member) {
-                await interaction.reply({ content: "❌ Usuário não encontrado no servidor!", ephemeral: true });
+                await interaction.editReply({ content: "❌ Usuário não encontrado no servidor!" });
                 return;
             }
 
             await (channel as any).permissionOverwrites.delete(member.id);
 
-            await interaction.reply({ 
+            await interaction.editReply({ 
                 content: `✅ O usuário <@${userId}> foi removido deste ticket por <@${interaction.user.id}>.` 
             });
-            return;
+
+            await (channel as any).send({
+                content: `🚫 O usuário <@${userId}> foi removido deste ticket.`
+            });
 
         } catch (error) {
-            return;
+            console.error("Erro ao remover membro:", error);
+            await interaction.editReply({ content: "❌ Ocorreu um erro ao remover o usuário. Verifique se eu tenho as permissões necessárias." });
         }
     },
 });

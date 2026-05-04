@@ -28,6 +28,8 @@ createResponder({
 
         await interaction.deferReply({ ephemeral: true });
         const categoryId = "1322339427967828091";
+        
+        // Busca de canal existente
         const existingChannel = guild.channels.cache.find(c => c.name === `⏰・${user.username.toLowerCase()}`);
 
         if (existingChannel) {
@@ -80,7 +82,10 @@ createResponder({
 
             await channel.send({ content: `${user}`, embeds: [embed], components: [menuRow, actionRow] });
             await interaction.editReply({ content: `✅ Seu ticket foi criado em ${channel}!` });
-        } catch (e) { await interaction.editReply({ content: "❌ Erro ao criar ticket." }); }
+        } catch (e) { 
+            console.error("Erro ao criar ticket:", e);
+            await interaction.editReply({ content: "❌ Erro ao criar ticket. Verifique minhas permissões para criar canais." }); 
+        }
     },
 });
 
@@ -132,7 +137,7 @@ createResponder({
     },
 });
 
-// ASSUMIR E FECHAR (Otimizados)
+// ASSUMIR E FECHAR
 createResponder({
     customId: "ticket-assumir",
     types: [ResponderType.Button],
@@ -140,9 +145,18 @@ createResponder({
     async run(interaction) {
         const { message, user } = interaction;
         if (!message?.embeds[0]) return;
+        
         const newEmbed = EmbedBuilder.from(message.embeds[0]);
-        const fieldIdx = newEmbed.data.fields?.findIndex(f => f.name === "👤 ASSUMIDO:");
-        if (fieldIdx !== undefined && fieldIdx !== -1) newEmbed.data.fields![fieldIdx].value = `${user}`;
+        const fields = Array.from(newEmbed.data.fields || []);
+        const fieldIdx = fields.findIndex(f => f.name === "👤 ASSUMIDO:");
+        
+        if (fieldIdx !== -1) {
+            fields[fieldIdx].value = `${user}`;
+        } else {
+            fields.push({ name: "👤 ASSUMIDO:", value: `${user}`, inline: true });
+        }
+        
+        newEmbed.setFields(fields);
         await interaction.update({ embeds: [newEmbed] });
     },
 });
@@ -159,17 +173,17 @@ createResponder({
 
         setTimeout(async () => {
             try {
-                // Carregar canal de logs da config
                 const configPath = path.join(process.cwd(), "config.json");
                 let logChannelId = null;
                 if (fs.existsSync(configPath)) {
-                    const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-                    logChannelId = config.ticketLogChannelId;
+                    try {
+                        const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+                        logChannelId = config.ticketLogChannelId;
+                    } catch (e) {}
                 }
 
                 const logChannel = logChannelId ? (guild?.channels.cache.get(logChannelId) as TextChannel) : null;
 
-                // Gerar Transcript
                 const attachment = await discordTranscripts.createTranscript(channel as any, {
                     limit: -1,
                     filename: `transcript-${channel.name}.html`,
