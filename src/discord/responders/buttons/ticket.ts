@@ -137,7 +137,7 @@ createResponder({
     },
 });
 
-// ASSUMIR E FECHAR
+// ASSUMIR E FECHAR (Otimizados)
 createResponder({
     customId: "ticket-assumir",
     types: [ResponderType.Button],
@@ -173,17 +173,17 @@ createResponder({
 
         setTimeout(async () => {
             try {
+                // Carregar canal de logs da config
                 const configPath = path.join(process.cwd(), "config.json");
                 let logChannelId = null;
                 if (fs.existsSync(configPath)) {
-                    try {
-                        const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-                        logChannelId = config.ticketLogChannelId;
-                    } catch (e) {}
+                    const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+                    logChannelId = config.ticketLogChannelId;
                 }
 
                 const logChannel = logChannelId ? (guild?.channels.cache.get(logChannelId) as TextChannel) : null;
 
+                // Gerar Transcript
                 const attachment = await discordTranscripts.createTranscript(channel as any, {
                     limit: -1,
                     filename: `transcript-${channel.name}.html`,

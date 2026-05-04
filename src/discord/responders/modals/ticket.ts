@@ -1,19 +1,19 @@
 ﻿import { createResponder } from "#base";
 import { ResponderType } from "@constatic/base";
+import { ChannelType, TextChannel } from "discord.js";
 
 createResponder({
     customId: "modal_add_id",
     types: [ResponderType.Modal],
     cache: "cached",
     async run(interaction, _params): Promise<void> {
+        await interaction.deferReply({ ephemeral: true });
         const { fields, guild, channel } = interaction;
-        
-        if (!guild || !channel || !("permissionOverwrites" in channel)) {
-            await interaction.reply({ content: "❌ Este canal não suporta permissões!", ephemeral: true });
+
+        if (!guild || !channel || channel.type !== ChannelType.GuildText) {
+            await interaction.editReply({ content: "❌ Este comando só pode ser usado em canais de texto de tickets." });
             return;
         }
-
-        await interaction.deferReply({ ephemeral: true });
 
         const userId = fields.getTextInputValue("input_user_id");
 
@@ -21,46 +21,42 @@ createResponder({
             const member = await guild.members.fetch(userId).catch(() => null);
 
             if (!member) {
-                await interaction.editReply({ content: "❌ Usuário não encontrado no servidor!" });
+                await interaction.editReply({ content: "❍ Usuário não encontrado no servidor! Verifique o ID." });
                 return;
             }
 
-            await (channel as any).permissionOverwrites.create(member.id, {
+            // Atualiza as permissões do usuário no canal atual (ticket aberto)
+            await (channel as TextChannel).permissionOverwrites.create(member.id, {
                 ViewChannel: true,
                 SendMessages: true,
-                ReadMessageHistory: true,
                 AttachFiles: true,
-                EmbedLinks: true
+                EmbedLinks: true,
+                ReadMessageHistory: true
             });
 
             await interaction.editReply({ 
-                content: `✅ O usuário ${member} foi adicionado a este ticket por <@${interaction.user.id}>.` 
+             content: `✅ O usuário ${member} foi adicionado a este ticket por <@${interaction.user.id}>.` 
             });
-
-            await (channel as any).send({
-                content: `👋 ${member}, você foi adicionado a este ticket por <@${interaction.user.id}>.`
-            });
-
         } catch (error) {
             console.error("Erro ao adicionar membro:", error);
-            await interaction.editReply({ content: "❌ Ocorreu um erro ao adicionar o usuário. Verifique se eu tenho as permissões necessárias." });
+            await interaction.editReply({ content: "❌ Ocorreu um erro ao tentar adicionar o usuário ao ticket. Verifique as permissões do bot." });
         }
-    },
+    }
 });
+
 
 createResponder({
     customId: "modal_remove_id",
     types: [ResponderType.Modal],
     cache: "cached",
     async run(interaction, _params): Promise<void> {
+        await interaction.deferReply({ ephemeral: true });
         const { fields, guild, channel } = interaction;
-        
-        if (!guild || !channel || !("permissionOverwrites" in channel)) {
-            await interaction.reply({ content: "❌ Este canal não suporta permissões!", ephemeral: true });
+
+        if (!guild || !channel || channel.type !== ChannelType.GuildText) {
+            await interaction.editReply({ content: "❌ Este comando só pode ser usado em canais de texto de tickets." });
             return;
         }
-
-        await interaction.deferReply({ ephemeral: true });
 
         const userId = fields.getTextInputValue("input_user_id_remove");
 
@@ -68,23 +64,19 @@ createResponder({
             const member = await guild.members.fetch(userId).catch(() => null);
 
             if (!member) {
-                await interaction.editReply({ content: "❌ Usuário não encontrado no servidor!" });
+                await interaction.editReply({ content: "❍ Usuário não encontrado no servidor! Verifique o ID." });
                 return;
             }
 
-            await (channel as any).permissionOverwrites.delete(member.id);
+            // Remove as permissões específicas do membro no canal atual
+            await (channel as TextChannel).permissionOverwrites.delete(member.id);
 
             await interaction.editReply({ 
                 content: `✅ O usuário <@${userId}> foi removido deste ticket por <@${interaction.user.id}>.` 
             });
-
-            await (channel as any).send({
-                content: `🚫 O usuário <@${userId}> foi removido deste ticket.`
-            });
-
         } catch (error) {
             console.error("Erro ao remover membro:", error);
-            await interaction.editReply({ content: "❌ Ocorreu um erro ao remover o usuário. Verifique se eu tenho as permissões necessárias." });
+            await interaction.editReply({ content: "❌ Ocorreu um erro ao tentar remover o usuário do ticket. Verifique as permissões do bot." });
         }
-    },
+    }
 });
